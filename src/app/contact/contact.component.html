@@ -1,0 +1,53 @@
+<div class="content">
+    <h1>Enter the contact</h1>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <section>
+            <nav>Name</nav>
+            <div>
+                <input type="text" placeholder="First Name" formControlName="firstName" />
+                <input type="text" placeholder="Last Name" formControlName="lastName" />
+                <div *ngIf="contactForm.get('firstName').invalid && contactForm.get('firstName').touched"> 
+                    <small *ngIf="contactForm.get('firstName')?.errors.required">First Name is required, at least 3 characters</small>
+                </div>
+                <div  *ngIf="contactForm.get('lastName').invalid && contactForm.get('firstName').touched">
+                    <small *ngIf="contactForm.get('firstName')?.errors.required">Last Name is required, at least 3 characters</small>
+                </div>
+            </div>
+        </section>
+        <section>
+            <nav>Phone</nav>
+            <div>
+                <input type = "text" placeholder="Phone" formControlName="phone" />
+                <div  *ngIf="contactForm.get('phone').invalid && contactForm.get('phone').touched">
+                    <small *ngIf="contactForm.get('Phone')?.errors.required">Phone is required, only numbers</small>
+                </div>
+            </div>
+        </section>
+        <section>
+            <nav>email</nav>
+            <div>
+                <input type = "text" placeholder="email" formControlName="email"/>
+                <div *ngIf="contactForm.get('email').invalid && contactForm.get('email').touched"></div>
+                    <small *ngIf="contactForm.get('email')?.errors.required">Email does not exist</small>
+                </div>
+                <input type="password" placeholder="Password" formControlName="password" />
+                <div *ngIf="contactForm.get('password').invalid && contactForm.get('password').touched"> 
+                    <small *ngIf="contactForm.get('password')?.errors.required">Password is required</small>
+                    <small *ngIf="contactForm.get('password')?.errors.hasNumber">Password must have at least one number</small>
+                    <small *ngIf="contactForm.get('password')?.errors.hasCapitalCase">Password must have at least one capital case</small>
+                    <small *ngIf="contactForm.get('password')?.errors.hasSmallCase">Password must have at least one small case</small>
+                    <small *ngIf="contactForm.get('password')?.errors.minlength">Password must be at least 8 characters</small>
+                </div>
+                <input type="password" placeholder="Confirm Password" formControlName="confirmPassword" />
+                <div *ngIf="contactForm.get('confirmPassword').invalid && contactForm.get('confirmPassword').touched"> 
+                    <small *ngIf="contactForm.get('confirmPassword')?.errors.required">Password must be the same</small>
+                </div> 
+                
+        </section>
+        <button type="submit" [disabled]="!contactForm.valid">Save</button>
+    </form>
+    <div *ngIf="formSubmitted && contactForm.valid">
+        <p>Congratulations, you entered the data correctly!</p> 
+    </div>
+</div>
+ 
